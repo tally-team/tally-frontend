@@ -21,7 +21,7 @@ export default function App() {
             {`${item[0]}: ${item[1]}`}
           </Text>
         ))}
-        <AddItem addItemToList={addItem}/>
+        <AddItem addItem={addItem}/>
             <Text>
               Amount: 10
             </Text>
