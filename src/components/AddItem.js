@@ -49,14 +49,14 @@ const AddItem = ({
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff'
-    },
-    row: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
 });
 
 export default AddItem;
