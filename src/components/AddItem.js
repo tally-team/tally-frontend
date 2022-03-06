@@ -45,7 +45,7 @@ const AddItem = ({
         title="Add Item"
         onPress={() => {
           const numberPrice = parseFloat(price);
-          if (!isNaN(numberPrice) && numberPrice !== 0) {
+          if (!isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== '') {
             addItem(name, Number(numberPrice.toFixed(2)), purchaser);
             reset();
           }
