@@ -7,8 +7,8 @@ export default function App() {
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
 
-  const addItem = (itemName, itemPrice) => {
-    setItems({...items, [itemName]: itemPrice});
+  const addItem = (itemName, itemPrice, itemPurchaser) => {
+    setItems({...items, [itemName]: [itemPrice, itemPurchaser]});
     setTotal(Number((total + itemPrice).toFixed(2)));
   }
 
@@ -16,20 +16,31 @@ export default function App() {
     <View style={styles.container}>
       <>
         <>
-        {Object.entries(items).map(item => (
-          <Text>
-            {`${item[0]}: ${item[1]}`}
-          </Text>
-        ))}
+          Item List
+          {Object.keys(items).map(itemName => {
+            const [itemPrice, purchaser] = [...items[itemName]];
+            return (
+              <View style={styles.row}>
+                <Text>
+                  {itemName}: {itemPrice}
+                </Text>
+                <Text>
+                Purchaser: {purchaser}
+                </Text>
+              </View>
+            )
+          })}
+        <br />
+        <br />
         <AddItem addItem={addItem}/>
-            <Text>
-              Amount: 10
-            </Text>
-            <Tip amount={10}/>
+        <Text>
+          Amount: 10
+        </Text>
+        <Tip amount={10}/>
         </>
 
         <Text>
-        {`Total: ${total}`}
+          Total: {total}
         </Text>
         
       </>
