@@ -8,6 +8,11 @@ const AddItem = ({
   const [price, setPrice] = useState(0);
   const [purchaser, setPurchaser] = useState("");
 
+  const isValidItem = () => {
+    const numberPrice = parseFloat(price);
+    return name.trim() !== '' && !isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== ''
+  }
+
   const reset = () => {
     setName("");
     setPrice(0);
@@ -44,8 +49,8 @@ const AddItem = ({
         class='add-item'
         title="Add Item"
         onPress={() => {
-          const numberPrice = parseFloat(price);
-          if (name.trim() !== '' && !isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== '') {
+          if (isValidItem()) {
+            const numberPrice = parseFloat(price);
             addItem(name, Number(numberPrice.toFixed(2)), purchaser);
             reset();
           }
