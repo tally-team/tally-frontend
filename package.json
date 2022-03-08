@@ -10,12 +10,6 @@
     "eject": "expo eject",
     "test": "jest"
   },
-  "jest": {
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
-    ]
-  },
   "dependencies": {
     "expo": "~43.0.0",
     "expo-status-bar": "~1.1.0",
@@ -28,6 +22,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/preset-react": "^7.16.7",
     "@testing-library/jest-native": "^4.0.4"
   },
   "private": true
