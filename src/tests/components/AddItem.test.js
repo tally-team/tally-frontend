@@ -17,7 +17,6 @@ describe('AddItem component', () => {
   });
 
   it('has three text input fields', () => {
-    wrapper = mount(<AddItem addItem={mockAddItem} />);
     expect(wrapper.find(TextInput)).toHaveLength(3);
   });
 
