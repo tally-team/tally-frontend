@@ -6,17 +6,22 @@ import AddItem from '../../components/AddItem';
 const mockAddItem = jest.fn();
 
 describe('AddItem component', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<AddItem addItem={mockAddItem} />);
+  });
+  
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('has three text input fields', () => {
-    const wrapper = mount(<AddItem addItem={mockAddItem} />);
+    wrapper = mount(<AddItem addItem={mockAddItem} />);
     expect(wrapper.find(TextInput)).toHaveLength(3);
   });
 
   it('valid item is added', () => {
-    const wrapper = shallow(<AddItem addItem={mockAddItem} />);
     const itemNameInput = wrapper.find(TextInput).at(0);
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
@@ -32,7 +37,6 @@ describe('AddItem component', () => {
   });
 
   it('valid item is added with price fixed to 2 decimal places', () => {
-    const wrapper = shallow(<AddItem addItem={mockAddItem} />);
     const itemNameInput = wrapper.find(TextInput).at(0);
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
@@ -48,7 +52,6 @@ describe('AddItem component', () => {
   });
 
   it('invalid item is not added: item with no name', () => {
-    const wrapper = shallow(<AddItem addItem={mockAddItem} />);
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
 
@@ -62,7 +65,6 @@ describe('AddItem component', () => {
   });
 
   it('invalid item is not added: item with no purchaser', () => {
-    const wrapper = shallow(<AddItem addItem={mockAddItem} />);
     const itemNameInput = wrapper.find(TextInput).at(0);
     const itemPriceInput = wrapper.find(TextInput).at(1);
 
@@ -76,7 +78,6 @@ describe('AddItem component', () => {
   });
 
   it('invalid item is not added: invalid price value', () => {
-    const wrapper = shallow(<AddItem addItem={mockAddItem} />);
     const itemNameInput = wrapper.find(TextInput).at(0);
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
@@ -90,5 +91,4 @@ describe('AddItem component', () => {
     
     expect(mockAddItem).not.toHaveBeenCalled();
   });
-
 });
