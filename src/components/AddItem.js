@@ -26,7 +26,6 @@ const AddItem = ({
           Name:
         </Text>
         <TextInput 
-          id="namecomponent"
           onChangeText={(value) => setName(value)}
           value={name}
         />
