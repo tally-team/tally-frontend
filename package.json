@@ -7,7 +7,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "./jestSetup.js"
+    ],
+    "testEnvironment": "jsdom"
   },
   "dependencies": {
     "expo": "~43.0.0",
@@ -18,7 +26,12 @@
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "babel-jest": "^27.5.1",
+    "enzyme": "^3.11.0",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^17.0.1"
   },
   "private": true
 }

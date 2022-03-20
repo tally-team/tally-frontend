@@ -34,7 +34,7 @@ const AddItem = ({
         </Text>
         <TextInput
           onChangeText={(value) => setPrice(value)}
-          value={price}
+          value={`${price}`}
           keyboardType="numeric"
         />
         <Text>
