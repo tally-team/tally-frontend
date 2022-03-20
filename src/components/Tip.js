@@ -36,7 +36,7 @@ export default function Tip({
       <View class='tip-options' style={styles.row}>
         {
           Object.entries(validTipPercentages).map(([index, validTipPercentage]) => {
-            let validTipPercentageString = getValidPercentageString(validTipPercentage);
+            const validTipPercentageString = getValidPercentageString(validTipPercentage);
             return(
               <Button
                 key={index}
