@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Tip from './components/Tip';
 import AddItem from './components/AddItem';
 
@@ -8,38 +8,33 @@ export default function App() {
   const [items, setItems] = useState({});
 
   const addItem = (itemName, itemPrice, itemPurchaser) => {
-    setItems({...items, [itemName]: [itemPrice, itemPurchaser]});
+    setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
     setTotal(Number((total + itemPrice).toFixed(2)));
-  }
+  };
 
   return (
     <View style={styles.container}>
       <>
         <>
           Item List
-          {Object.keys(items).map(itemName => {
+          {Object.keys(items).map((itemName) => {
             const [itemPrice, purchaser] = [...items[itemName]];
             return (
               <View style={styles.row}>
                 <Text>
                   {itemName}: {itemPrice}
                 </Text>
-                <Text>
-                Purchaser: {purchaser}
-                </Text>
+                <Text>Purchaser: {purchaser}</Text>
               </View>
-            )
+            );
           })}
-        <br />
-        <br />
-        <AddItem addItem={addItem}/>
-        <Tip amount={total}/>
+          <br />
+          <br />
+          <AddItem addItem={addItem} />
+          <Tip amount={total} />
         </>
 
-        <Text>
-          Total: {total}
-        </Text>
-        
+        <Text>Total: {total}</Text>
       </>
     </View>
   );
@@ -48,10 +43,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
