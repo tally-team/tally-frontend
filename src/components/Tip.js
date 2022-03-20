@@ -15,15 +15,15 @@ export default function Tip({
 
   const changePercentage = (amount, tipPercentage, isCustomPercentage) => {
     const tipAmount = (amount*tipPercentage/100).toFixed(2);
-    setTipPercentage(amount)
-    setTipAmount(tipAmount)
+    setTipPercentage(tipPercentage);
+    setTipAmount(tipAmount);
     !isCustomPercentage && setUseCustomTip(false)
   }
 
-  const validTipPercentages = {
-    15: "15%",
-    18: "18%",
-    20: "20%"
+  const validTipPercentages = [15, 18, 20]
+
+  const getValidPercentageString = (validTipPercentage) => {
+    return `${validTipPercentage}%`
   }
 
   return(
@@ -35,16 +35,16 @@ export default function Tip({
       </View>
       <View class='tip-options' style={styles.row}>
         {
-          Object.entries(validTipPercentages).map((validTipPercentage, index) => {
-            const [validTipPercentageInt, validTipPercentageString] = validTipPercentage;
+          Object.entries(validTipPercentages).map(([index, validTipPercentage]) => {
+            let validTipPercentageString = getValidPercentageString(validTipPercentage);
             return(
               <Button
                 key={index}
                 class='tip-percentage'
                 title={validTipPercentageString}
                 onPress={() => {
-                  if (isTipValid(validTipPercentageInt)) {
-                    changePercentage(amount, validTipPercentageInt, false)
+                  if (isTipValid(validTipPercentage)) {
+                    changePercentage(amount, validTipPercentage, false)
                   }
                 }}
               />
