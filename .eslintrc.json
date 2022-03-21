@@ -1,6 +1,8 @@
 {
     "env": {
-        "es2021": true
+        "es2021": true,
+        "jasmine": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -17,7 +19,8 @@
     },
     "plugins": [
         "react",
-        "react-native"
+        "react-native",
+        "jest"
     ],
     "rules": {
         // allow .js files to contain JSX code
@@ -27,6 +30,10 @@
         "no-use-before-define": ["error", { "variables": false }],
 
         // ignore errors for the react-navigation package
-        "react/prop-types": ["error", {"ignore": ["navigation", "navigation.navigate"]}]
+        "react/prop-types": ["error", {"ignore": ["navigation", "navigation.navigate"]}],
+        "no-unused-vars": "warn",
+        "radix": ["error", "as-needed"],
+        "no-shadow": "warn",
+        "no-restricted-globals": "warn"
     }
 }
