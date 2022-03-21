@@ -6,6 +6,7 @@ import AddItem from './components/AddItem';
 export default function App() {
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
+  const [tip, setTip] = useState(0);
 
   const addItem = (itemName, itemPrice, itemPurchaser) => {
     setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
@@ -31,9 +32,8 @@ export default function App() {
           <br />
           <br />
           <AddItem addItem={addItem} />
-          <Tip amount={total} />
+          <Tip amount={total} setTip={setTip} />
         </>
-
         <Text>Total: {total}</Text>
       </>
     </View>
