@@ -4,7 +4,7 @@ import Tip from './components/Tip';
 import AddItem from './components/AddItem';
 
 export default function App() {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(10);
   const [items, setItems] = useState({});
   const [tip, setTip] = useState(0);
 
@@ -17,7 +17,9 @@ export default function App() {
     <View style={styles.container}>
       <>
         <>
-          Item List
+          <Text>
+            Item List
+          </Text>
           {Object.keys(items).map(itemName => {
             const [itemPrice, purchaser] = [...items[itemName]];
             return (
@@ -31,14 +33,17 @@ export default function App() {
               </View>
             )
           })}
-          <br />
-          <br />
           <AddItem addItem={addItem}/>
-          <Tip amount={total} setTip={setTip}/>
+          <Tip total={total} tip={tip} setTip={setTip}/>
+          <Text>
+            Tip: {tip}
+          </Text>
         </>
-        <Text>
-          Total: {total}
-        </Text>
+        <View class='tip-header'>
+          <Text>
+            Total: {total}
+          </Text>
+        </View>
       </>
     </View>
   );
