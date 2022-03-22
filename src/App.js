@@ -4,7 +4,7 @@ import Tip from './components/Tip';
 import AddItem from './components/AddItem';
 
 export default function App() {
-  const [total, setTotal] = useState(10);
+  const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
   const [tip, setTip] = useState(0);
 
