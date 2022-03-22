@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "jest": {
     "preset": "react-native",
@@ -20,6 +21,7 @@
   "dependencies": {
     "expo": "~43.0.0",
     "expo-status-bar": "~1.1.0",
+    "prop-types": "^15.8.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
@@ -30,8 +32,24 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "babel-jest": "^27.5.1",
     "enzyme": "^3.11.0",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-react-native": "^4.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
+    "lint-staged": "^12.3.7",
+    "prettier": "2.6.0",
     "react-test-renderer": "^17.0.1"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
 }

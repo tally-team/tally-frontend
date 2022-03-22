@@ -10,23 +10,21 @@ describe('Tip component', () => {
   const amount = 15;
 
   beforeEach(() => {
-    wrapper = shallow(<Tip amount={amount} setTipAmount={mockSetTipAmount}/>);
+    wrapper = shallow(<Tip amount={amount} setTipAmount={mockSetTipAmount} />);
   });
-  
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  const calculateTip = (perecentage) => {
-    return (perecentage * amount).toFixed(2)
-  };
+  const calculateTip = (perecentage) => (perecentage * amount).toFixed(2);
 
   const setUpCustomTestScenarios = () => {
     const tipOptions = wrapper.find(View).at(1);
     const selectCustomTip = tipOptions.find(Button).at(3);
 
     selectCustomTip.simulate('press');
-  }
+  };
 
   it('has four tip buttons', () => {
     expect(wrapper.find(Button)).toHaveLength(4);
@@ -38,7 +36,7 @@ describe('Tip component', () => {
   });
 
   it('valid tip is calculated when selecting 15%', () => {
-    const tipOptions = wrapper.find(View).at(1);    
+    const tipOptions = wrapper.find(View).at(1);
     const fifteenPercentTip = tipOptions.find(Button).at(0);
     const expectedTip = calculateTip(0.15);
 
@@ -48,7 +46,7 @@ describe('Tip component', () => {
 
     const tipHeaderText = wrapper.find(Text).at(0).shallow().text();
     expect(tipHeaderText.includes(expectedTip)).toBe(true);
-    expect(mockSetTipAmount).toHaveBeenCalledWith("2.25");
+    expect(mockSetTipAmount).toHaveBeenCalledWith('2.25');
   });
 
   it('valid custom tip is enabled when selecting custom tip', () => {
