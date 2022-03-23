@@ -33,6 +33,7 @@ export default function App() {
           <br />
           <AddItem addItem={addItem} />
           <Tip amount={total} setTipAmount={setTip} />
+          <Text>Tip: {tip}</Text>
         </>
         <Text>Total: {total}</Text>
       </>
