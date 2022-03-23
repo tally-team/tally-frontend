@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function Tip({
@@ -23,13 +24,11 @@ export default function Tip({
     !isCustomPercentage && setUseCustomTip(false)
   }
 
-  const validTipPercentages = [15, 18, 20]
+  const validTipPercentages = [15, 18, 20];
 
-  const getValidPercentageString = (validTipPercentage) => {
-    return `${validTipPercentage}%`
-  }
+  const getValidPercentageString = (validTipPercentage) => `${validTipPercentage}%`;
 
-  return(
+  return (
     <>
       <View class='tip-options' style={styles.row}>
         {
@@ -51,9 +50,9 @@ export default function Tip({
         }
         <Button
           key={validTipPercentages.length}
-          class='tip-percentage'
+          class="tip-percentage"
           title="Custom"
-          onPress={() => setUseCustomTip(!!!useCustomTip)}
+          onPress={() => setUseCustomTip(!useCustomTip)}
         />
       </View>
       {useCustomTip && (
@@ -74,16 +73,21 @@ export default function Tip({
         </View>
       )}
     </>
-  )   
+  );
 }
+
+Tip.propTypes = {
+  amount: PropTypes.number.isRequired,
+  setTipAmount: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
