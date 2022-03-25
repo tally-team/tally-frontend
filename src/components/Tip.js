@@ -9,16 +9,16 @@ export default function Tip({
   const [tipPercentage, setTipPercentage] = useState(0)
   const [useCustomTip, setUseCustomTip] = useState(false)
 
-  const isTipValid = (tipPerecentageInput) => {
-    const numTip = parseInt(tipPerecentageInput);
+  const isTipValid = (tipPercentageInput) => {
+    const numTip = parseInt(tipPercentageInput);
     return (numTip >= 0) && (numTip < 100);
   }
 
-  const changePercentage = (total, tipPerecentageInput, isCustomPercentage) => {
-    const tipPerecentageFloat = parseFloat(tipPerecentageInput);
-    const tipAmount = parseFloat(total*tipPerecentageFloat/100).toFixed(2);
+  const changePercentage = (total, tipPercentageInput, isCustomPercentage) => {
+    const tipPercentageFloat = parseFloat(tipPercentageInput);
+    const tipAmount = parseFloat(total*tipPercentageFloat/100).toFixed(2);
 
-    setTipPercentage(parseInt(tipPerecentageFloat));
+    setTipPercentage(parseInt(tipPercentageFloat));
     setTip(tipAmount);
 
     !isCustomPercentage && setUseCustomTip(false)
@@ -61,9 +61,9 @@ export default function Tip({
                 Enter percentage here: 
             </Text>
             <TextInput
-              onChangeText={(tipPerecentageInput) => {
-                if (isTipValid(tipPerecentageInput)) {
-                  changePercentage(total, tipPerecentageInput, true)
+              onChangeText={(tipPercentageInput) => {
+                if (isTipValid(tipPercentageInput)) {
+                  changePercentage(total, tipPercentageInput, true)
                 }
               }}
               defaultValue={tipPercentage.toString()}
@@ -77,8 +77,8 @@ export default function Tip({
 }
 
 Tip.propTypes = {
-  amount: PropTypes.number.isRequired,
-  setTipAmount: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
+  setTip: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
