@@ -1,49 +1,43 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
 
-const AddPartyMember = ({
-  addPartyMember
-}) => {
-  const [name, setName] = useState("");
-
-  const reset = () => {
-    setName("");
-  }
+function AddPartyMember({ addPartyMember }) {
+  const [name, setName] = useState('');
 
   return (
     <>
       <View style={styles.row}>
-        <Text>
-          Name:
-        </Text>
-        <TextInput 
-          onChangeText={(value) => setName(value.trim())}
-          value={name}
-        />
+        <Text>Name:</Text>
+        <TextInput onChangeText={(value) => setName(value.trim())} value={name} />
       </View>
       <Button
-        class='add-party-member'
+        class="add-party-member"
         title="Add Party Member"
         onPress={() => {
           if (name) {
             addPartyMember(name);
-            reset();
+            setName('');
           }
         }}
       />
-     </>
-  )
+    </>
+  );
 }
+
+AddPartyMember.propTypes = {
+  addPartyMember: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
 
 export default AddPartyMember;

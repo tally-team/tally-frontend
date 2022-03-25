@@ -1,0 +1,39 @@
+{
+    "env": {
+        "es2021": true,
+        "jasmine": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "airbnb/hooks",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-native",
+        "jest"
+    ],
+    "rules": {
+        // allow .js files to contain JSX code
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+            
+        // prevent eslint to complain about the "styles" variable being used before it was defined
+        "no-use-before-define": ["error", { "variables": false }],
+
+        // ignore errors for the react-navigation package
+        "react/prop-types": ["error", {"ignore": ["navigation", "navigation.navigate"]}],
+        "no-unused-vars": "warn",
+        "radix": ["error", "as-needed"],
+        "no-shadow": "warn",
+        "no-restricted-globals": "warn"
+    }
+}

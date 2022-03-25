@@ -1,52 +1,41 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
 
-const AddItem = ({
-  addItem
-}) => {
-  const [name, setName] = useState("");
+function AddItem({ addItem }) {
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [purchaser, setPurchaser] = useState("");
+  const [purchaser, setPurchaser] = useState('');
 
   const isValidItem = () => {
     const numberPrice = parseFloat(price);
-    return name.trim() !== '' && !isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== ''
-  }
+    return (
+      name.trim() !== '' && !isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== ''
+    );
+  };
 
   const reset = () => {
-    setName("");
+    setName('');
     setPrice(0);
-    setPurchaser("");
-  }
+    setPurchaser('');
+  };
 
   return (
     <>
       <View style={styles.row}>
-        <Text>
-          Name:
-        </Text>
-        <TextInput 
-          onChangeText={(value) => setName(value)}
-          value={name}
-        />
-        <Text>
-          Price:
-        </Text>
+        <Text>Name:</Text>
+        <TextInput onChangeText={(value) => setName(value)} value={name} />
+        <Text>Price:</Text>
         <TextInput
           onChangeText={(value) => setPrice(value)}
           value={`${price}`}
           keyboardType="numeric"
         />
-        <Text>
-          Purchaser:
-        </Text>
-        <TextInput 
-          onChangeText={(value) => setPurchaser(value)}
-          value={purchaser}
-        />
+        <Text>Purchaser:</Text>
+        <TextInput onChangeText={(value) => setPurchaser(value)} value={purchaser} />
       </View>
       <Button
-        class='add-item'
+        class="add-item"
         title="Add Item"
         onPress={() => {
           if (isValidItem()) {
@@ -56,19 +45,23 @@ const AddItem = ({
           }
         }}
       />
-     </>
-  )
+    </>
+  );
 }
+
+AddItem.propTypes = {
+  addItem: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
 
 export default AddItem;
