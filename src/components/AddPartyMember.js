@@ -9,14 +9,14 @@ function AddPartyMember({ addPartyMember }) {
     <>
       <View style={styles.row}>
         <Text>Name:</Text>
-        <TextInput onChangeText={(value) => setName(value.trim())} value={name} />
+        <TextInput onChangeText={(value) => setName(value)} value={name} />
       </View>
       <Button
         class="add-party-member"
         title="Add Party Member"
         onPress={() => {
-          if (name) {
-            addPartyMember(name);
+          if (name.trim()) {
+            addPartyMember(name.trim());
             setName('');
           }
         }}

@@ -29,7 +29,7 @@ export default function App() {
           ))}
           <br />
           <br />
-          <AddPartyMember addPartyMember />
+          <AddPartyMember addPartyMember={addPartyMember} />
           <br />
           <br />
           Item List
