@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Tip from './components/Tip';
 import AddItem from './components/AddItem';
+import Tax from './components/Tax';
+import Tip from './components/Tip';
 
 export default function App() {
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
   const [tip, setTip] = useState(0);
+  const [tax, setTax] = useState(0);
 
   const addItem = (itemName, itemPrice, itemPurchaser) => {
     setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
@@ -32,6 +34,10 @@ export default function App() {
           <br />
           <br />
           <AddItem addItem={addItem} />
+          <Tax tax={tax} setTax={setTax}/>
+          <Text>
+            Tax: {tax}
+          </Text>
           <Tip total={total} setTip={setTip} />
           <Text>Tip: {tip}</Text>
         </>
