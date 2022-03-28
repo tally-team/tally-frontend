@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-export default function Tip({ amount, setTipAmount }) {
+export default function Tip({ total, setTip }) {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [useCustomTip, setUseCustomTip] = useState(false);
 
-  const isTipValid = (tipAmount) => {
-    const numAmount = parseInt(tipAmount);
-    return numAmount >= 0 && numAmount < 100;
+  const isTipValid = (tipPercentageInput) => {
+    const numTip = parseInt(tipPercentageInput);
+    return numTip >= 0 && numTip < 100;
   };
 
-  const changePercentage = (amount, tipPercentage, isCustomPercentage) => {
-    const tipAmount = ((amount * tipPercentage) / 100).toFixed(2);
-    setTipPercentage(tipPercentage);
-    setTipAmount(tipAmount);
+  const changePercentage = (total, tipPercentageInput, isCustomPercentage) => {
+    const tipPercentageFloat = parseFloat(tipPercentageInput);
+    const tipAmount = parseFloat((total * tipPercentageFloat) / 100).toFixed(2);
+
+    setTipPercentage(parseInt(tipPercentageFloat));
+    setTip(tipAmount);
+
     if (!isCustomPercentage) {
       setUseCustomTip(false);
     }
@@ -26,11 +29,8 @@ export default function Tip({ amount, setTipAmount }) {
 
   return (
     <>
-      <View class="tip-header">
-        <Text>Tip Amount: ${((amount * tipPercentage) / 100).toFixed(2)}</Text>
-      </View>
       <View class="tip-options" style={styles.row}>
-        {Object.entries(validTipPercentages).map(([index, validTipPercentage]) => {
+        {validTipPercentages.map((validTipPercentage, index) => {
           const validTipPercentageString = getValidPercentageString(validTipPercentage);
           return (
             <Button
@@ -39,13 +39,12 @@ export default function Tip({ amount, setTipAmount }) {
               title={validTipPercentageString}
               onPress={() => {
                 if (isTipValid(validTipPercentage)) {
-                  changePercentage(amount, validTipPercentage, false);
+                  changePercentage(total, validTipPercentage, false);
                 }
               }}
             />
           );
         })}
-
         <Button
           key={validTipPercentages.length}
           class="tip-percentage"
@@ -57,17 +56,15 @@ export default function Tip({ amount, setTipAmount }) {
         <View class="custom-tip-percentage">
           <Text>Enter percentage here:</Text>
           <TextInput
-            onChangeText={(value) => {
-              const tipPercentage = parseInt(value);
-              if (isTipValid(tipPercentage)) {
-                changePercentage(amount, tipPercentage, true);
+            onChangeText={(tipPercentageInput) => {
+              if (isTipValid(tipPercentageInput)) {
+                changePercentage(total, tipPercentageInput, true);
               }
             }}
-            value={tipPercentage.toFixed(2)}
+            defaultValue={tipPercentage.toString()}
             maxLength={2}
             keyboardType="numeric"
           />
-          <Text>%</Text>
         </View>
       )}
     </>
@@ -75,8 +72,8 @@ export default function Tip({ amount, setTipAmount }) {
 }
 
 Tip.propTypes = {
-  amount: PropTypes.number.isRequired,
-  setTipAmount: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
+  setTip: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

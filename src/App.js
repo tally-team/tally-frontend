@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Tip from './components/Tip';
 import AddItem from './components/AddItem';
 import AddPartyMember from './components/AddPartyMember';
+import Tax from './components/Tax';
+import Tip from './components/Tip';
 
 export default function App() {
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
   const [party, setParty] = useState([]);
   const [tip, setTip] = useState(0);
+  const [tax, setTax] = useState(0);
 
   const addItem = (itemName, itemPrice, itemPurchaser) => {
     setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
@@ -47,7 +49,10 @@ export default function App() {
           <br />
           <br />
           <AddItem addItem={addItem} />
-          <Tip amount={total} setTipAmount={setTip} />
+          <Tax tax={tax} setTax={setTax} />
+          <Text>Tax: {tax}</Text>
+          <Tip total={total} setTip={setTip} />
+          <Text>Tip: {tip}</Text>
         </>
         <Text>Total: {total}</Text>
       </>
