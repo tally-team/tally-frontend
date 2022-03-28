@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Button, View, Text, TextInput } from 'react-native';
+import { Button, View, TextInput } from 'react-native';
 import Tip from '../../components/Tip';
 
 const mockSetTip = jest.fn();
@@ -10,23 +10,21 @@ describe('Tip component', () => {
   const total = 15;
 
   beforeEach(() => {
-    wrapper = shallow(<Tip total={total} setTip={mockSetTip}/>);
+    wrapper = shallow(<Tip total={total} setTip={mockSetTip} />);
   });
-  
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  const calculateTip = (perecentage) => {
-    return (perecentage * total).toFixed(2)
-  };
+  const calculateTip = (perecentage) => (perecentage * total).toFixed(2);
 
   const setUpCustomTestScenarios = () => {
     const tipOptions = wrapper.find(View).at(0);
     const selectCustomTip = tipOptions.find(Button).at(3);
 
     selectCustomTip.simulate('press');
-  }
+  };
 
   it('has four tip buttons', () => {
     expect(wrapper.find(Button)).toHaveLength(4);
@@ -45,7 +43,7 @@ describe('Tip component', () => {
 
     wrapper.update();
 
-    expect(mockSetTip).toHaveBeenCalledWith("2.25");
+    expect(mockSetTip).toHaveBeenCalledWith(expectedTip);
   });
 
   it('valid custom tip is enabled when selecting custom tip', () => {
