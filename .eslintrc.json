@@ -34,6 +34,7 @@
         "no-unused-vars": "warn",
         "radix": ["error", "as-needed"],
         "no-shadow": "warn",
-        "no-restricted-globals": "warn"
+        "no-restricted-globals": "warn",
+        "react/no-array-index-key": "warn"
     }
 }
