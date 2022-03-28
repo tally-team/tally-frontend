@@ -6,8 +6,9 @@ import Tax from '../../components/Tax';
 const mockSetTax = jest.fn();
 
 describe('Tax component', () => {
-  let wrapper; let tipTextInput;
-  const tax = '15';
+  let wrapper;
+  let tipTextInput;
+  const tax = 15;
 
   beforeEach(() => {
     wrapper = shallow(<Tax tax={tax} setTax={mockSetTax} />);
