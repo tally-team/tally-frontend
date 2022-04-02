@@ -32,7 +32,7 @@ describe('AddItem component', () => {
 
     wrapper.find(Button).simulate('press');
 
-    expect(mockAddItem).toHaveBeenCalledWith('itemA', 6.99, 'PersonA');
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, 'PersonA');
   });
 
   it('valid item is added with price fixed to 2 decimal places', () => {
