@@ -12,8 +12,8 @@ export default function App() {
   const [tip, setTip] = useState(0);
   const [tax, setTax] = useState(0);
 
-  const addItem = (itemName, itemPrice, itemPurchaser) => {
-    setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
+  const addItem = (itemName, itemPrice, itemPurchaserList) => {
+    setItems({ ...items, [itemName]: [itemPrice, itemPurchaserList] });
     setTotal(Number((total + itemPrice).toFixed(2)));
   };
 
@@ -48,7 +48,7 @@ export default function App() {
           })}
           <br />
           <br />
-          <AddItem addItem={addItem} />
+          <AddItem addItem={addItem} party={party} />
           <Tax tax={tax} setTax={setTax} />
           <Text>Tax: {tax}</Text>
           <Tip total={total} setTip={setTip} />
