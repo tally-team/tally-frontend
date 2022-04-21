@@ -65,7 +65,7 @@ export default function App() {
           <Tip total={total} setTip={setTip} />
           <Text>Tip: {tip.toFixed(2)}</Text>
         </>
-        <Text>Total: {total}</Text>
+        <Text>Subtotal: {total}</Text>
       </>
     </View>
   );

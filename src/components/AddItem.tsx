@@ -31,7 +31,7 @@ function AddItem({ addItem }) {
         <TextInput
           placeholder="0"
           onChangeText={(value) => setPrice(parseFloat(value))}
-          value={`${price}`}
+          defaultValue={`${price}`}
           keyboardType="numeric"
         />
         <Text>Purchaser:</Text>
