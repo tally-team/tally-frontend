@@ -61,9 +61,9 @@ export default function App() {
           </Text>
           <AddItem addItem={addItem} />
           <Tax tax={tax} setTax={setTax} />
-          <Text>Tax: {tax}</Text>
+          <Text>Tax: {tax.toFixed(2)}</Text>
           <Tip total={total} setTip={setTip} />
-          <Text>Tip: {tip}</Text>
+          <Text>Tip: {tip.toFixed(2)}</Text>
         </>
         <Text>Total: {total}</Text>
       </>
