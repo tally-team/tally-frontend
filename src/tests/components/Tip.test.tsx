@@ -17,7 +17,7 @@ describe('Tip component', () => {
     jest.clearAllMocks();
   });
 
-  const calculateTip = (perecentage) => parseFloat((perecentage * total).toFixed(2));
+  const calculateTip = (percentage: number) => parseFloat((percentage * total).toFixed(2));
 
   const setUpCustomTestScenarios = () => {
     const tipOptions = wrapper.find(View).at(0);
