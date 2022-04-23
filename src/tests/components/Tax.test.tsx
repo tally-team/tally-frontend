@@ -22,13 +22,13 @@ describe('Tax component', () => {
   it('valid tax is set after typing a valid decimal string', () => {
     tipTextInput.simulate('changeText', '16.00');
 
-    expect(mockSetTax).toHaveBeenCalledWith('16.00');
+    expect(mockSetTax).toHaveBeenCalledWith(16);
   });
 
   it('valid tax is set after typing a valid int string', () => {
     tipTextInput.simulate('changeText', '200');
 
-    expect(mockSetTax).toHaveBeenCalledWith('200.00');
+    expect(mockSetTax).toHaveBeenCalledWith(200);
   });
 
   it('invalid tax is not set after typing an invalid decimal string', () => {

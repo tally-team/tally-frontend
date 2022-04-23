@@ -8,9 +8,8 @@ function AddItem({ addItem }) {
   const [purchaser, setPurchaser] = useState('');
 
   const isValidItem = () => {
-    const numberPrice = parseFloat(price);
     return (
-      name.trim() !== '' && !isNaN(numberPrice) && numberPrice !== 0 && purchaser.trim() !== ''
+      name.trim() !== '' && !isNaN(price) && price !== 0 && purchaser.trim() !== ''
     );
   };
 
@@ -24,23 +23,28 @@ function AddItem({ addItem }) {
     <>
       <View style={styles.row}>
         <Text>Name:</Text>
-        <TextInput onChangeText={(value) => setName(value)} value={name} />
+        <TextInput 
+          placeholder="Item Name"
+          onChangeText={(value) => setName(value)}
+          value={name} />
         <Text>Price:</Text>
         <TextInput
-          onChangeText={(value) => setPrice(value)}
-          value={`${price}`}
+          placeholder="0"
+          onChangeText={(value) => setPrice(parseFloat(value))}
+          defaultValue={`${price}`}
           keyboardType="numeric"
         />
         <Text>Purchaser:</Text>
-        <TextInput onChangeText={(value) => setPurchaser(value)} value={purchaser} />
+        <TextInput 
+          placeholder="Person A"
+          onChangeText={(value) => setPurchaser(value)}
+          value={purchaser} />
       </View>
       <Button
-        class="add-item"
         title="Add Item"
         onPress={() => {
           if (isValidItem()) {
-            const numberPrice = parseFloat(price);
-            addItem(name, Number(numberPrice.toFixed(2)), purchaser);
+            addItem(name, Number(price.toFixed(2)), purchaser);
             reset();
           }
         }}

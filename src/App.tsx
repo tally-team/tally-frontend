@@ -12,12 +12,12 @@ export default function App() {
   const [tip, setTip] = useState(0);
   const [tax, setTax] = useState(0);
 
-  const addItem = (itemName, itemPrice, itemPurchaser) => {
+  const addItem = (itemName: string, itemPrice: number, itemPurchaser: string) => {
     setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
     setTotal(Number((total + itemPrice).toFixed(2)));
   };
 
-  const addPartyMember = (memberName) => {
+  const addPartyMember = (memberName: string) => {
     setParty([...party, memberName]);
   };
 
@@ -25,20 +25,29 @@ export default function App() {
     <View style={styles.container}>
       <>
         <>
+        <Text>
           Party
-          {party.map((name) => (
-            <Text>{name}</Text>
+        </Text>
+          
+          {party.map((name, index) => (
+            <Text key={`${name}-${index}`}>{name}</Text>
           ))}
-          <br />
-          <br />
+          <Text>
+            {`\n`}
+            {`\n`}
+          </Text>
           <AddPartyMember addPartyMember={addPartyMember} />
-          <br />
-          <br />
+          <Text>
+            {`\n`}
+            {`\n`}
+          </Text>
+          <Text>
           Item List
+          </Text>
           {Object.keys(items).map((itemName) => {
             const [itemPrice, purchaser] = [...items[itemName]];
             return (
-              <View style={styles.row}>
+              <View style={styles.row} key={itemName}>
                 <Text>
                   {itemName}: {itemPrice}
                 </Text>
@@ -46,15 +55,17 @@ export default function App() {
               </View>
             );
           })}
-          <br />
-          <br />
+          <Text>
+          {`\n`}
+          {`\n`}
+          </Text>
           <AddItem addItem={addItem} />
           <Tax tax={tax} setTax={setTax} />
-          <Text>Tax: {tax}</Text>
+          <Text>Tax: {tax.toFixed(2)}</Text>
           <Tip total={total} setTip={setTip} />
-          <Text>Tip: {tip}</Text>
+          <Text>Tip: {tip.toFixed(2)}</Text>
         </>
-        <Text>Total: {total}</Text>
+        <Text>Subtotal: {total}</Text>
       </>
     </View>
   );
