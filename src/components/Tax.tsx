@@ -9,25 +9,24 @@ export default function Tax({ tax, setTax }) {
   };
 
   const roundToNearestCent = (amount: string) => {
-    return Math.round(parseFloat(amount) * 100) / 100
-  }
+    return Math.round(parseFloat(amount) * 100) / 100;
+  };
 
   return (
     <View>
-        <Text>Enter tax here:</Text>
-        <TextInput
-          placeholder="0"
-          onChangeText={(taxAmountInput) => {
-            if (isTaxAmountValid(taxAmountInput)) {
-              const taxAmount = roundToNearestCent(taxAmountInput)
-              // parseFloat(parseFloat(taxAmountInput).toFixed(2))
-              setTax(taxAmount);
-            }
-          }}
-          defaultValue={tax.toString()}
-          keyboardType="numeric"
-        />
-      </View>
+      <Text>Enter tax here:</Text>
+      <TextInput
+        placeholder="0"
+        onChangeText={(taxAmountInput) => {
+          if (isTaxAmountValid(taxAmountInput)) {
+            const taxAmount = roundToNearestCent(taxAmountInput);
+            setTax(taxAmount);
+          }
+        }}
+        defaultValue={tax.toString()}
+        keyboardType="numeric"
+      />
+    </View>
   );
 }
 
