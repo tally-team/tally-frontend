@@ -11,7 +11,7 @@ describe('AddItem component', () => {
   beforeEach(() => {
     wrapper = shallow(<AddItem addItem={mockAddItem} />);
   });
-  
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -25,14 +25,14 @@ describe('AddItem component', () => {
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
 
-    itemNameInput.simulate('changeText', "itemA");
+    itemNameInput.simulate('changeText', 'itemA');
     itemPriceInput.simulate('changeText', '5.99');
     purchaserInput.simulate('changeText', 'PersonA');
     wrapper.update();
 
     wrapper.find(Button).simulate('press');
-    
-    expect(mockAddItem).toHaveBeenCalledWith("itemA", 5.99, "PersonA");
+
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, 'PersonA');
   });
 
   it('valid item is added with price fixed to 2 decimal places', () => {
@@ -40,14 +40,14 @@ describe('AddItem component', () => {
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
 
-    itemNameInput.simulate('changeText', "itemA");
+    itemNameInput.simulate('changeText', 'itemA');
     itemPriceInput.simulate('changeText', '4.1231294');
     purchaserInput.simulate('changeText', 'PersonA');
     wrapper.update();
 
     wrapper.find(Button).simulate('press');
-    
-    expect(mockAddItem).toHaveBeenCalledWith("itemA", 4.12, "PersonA");
+
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 4.12, 'PersonA');
   });
 
   it('invalid item is not added: item with no name', () => {
@@ -59,7 +59,7 @@ describe('AddItem component', () => {
     wrapper.update();
 
     wrapper.find(Button).simulate('press');
-    
+
     expect(mockAddItem).not.toHaveBeenCalled();
   });
 
@@ -67,12 +67,12 @@ describe('AddItem component', () => {
     const itemNameInput = wrapper.find(TextInput).at(0);
     const itemPriceInput = wrapper.find(TextInput).at(1);
 
-    itemNameInput.simulate('changeText', "itemA");
+    itemNameInput.simulate('changeText', 'itemA');
     itemPriceInput.simulate('changeText', '4.1231294');
     wrapper.update();
 
     wrapper.find(Button).simulate('press');
-    
+
     expect(mockAddItem).not.toHaveBeenCalled();
   });
 
@@ -81,13 +81,13 @@ describe('AddItem component', () => {
     const itemPriceInput = wrapper.find(TextInput).at(1);
     const purchaserInput = wrapper.find(TextInput).at(2);
 
-    itemNameInput.simulate('changeText', "itemA");
+    itemNameInput.simulate('changeText', 'itemA');
     itemPriceInput.simulate('changeText', 'abc123');
     purchaserInput.simulate('changeText', 'PersonA');
     wrapper.update();
 
     wrapper.find(Button).simulate('press');
-    
+
     expect(mockAddItem).not.toHaveBeenCalled();
   });
 });

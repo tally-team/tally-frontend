@@ -6,40 +6,34 @@ export default function Tip({ total, setTip }) {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [useCustomTip, setUseCustomTip] = useState(false);
 
-  const isTipValid = (tipPercentageInput) => {
-    const numTip = parseInt(tipPercentageInput);
-    return numTip >= 0 && numTip < 100;
+  const isTipValid = (tipPercentageInput: number) => {
+    return tipPercentageInput >= 0 && tipPercentageInput < 100;
   };
 
-  const changePercentage = (total, tipPercentageInput, isCustomPercentage) => {
-    const tipPercentageFloat = parseFloat(tipPercentageInput);
-    const tipAmount = parseFloat((total * tipPercentageFloat) / 100).toFixed(2);
+  const changeTipValues = (total: number, tipPercentageInput: number) => {
+    const tipAmount = ((total * tipPercentageInput) / 100).toFixed(2);
 
-    setTipPercentage(parseInt(tipPercentageFloat));
-    setTip(tipAmount);
-
-    if (!isCustomPercentage) {
-      setUseCustomTip(false);
-    }
+    setTipPercentage(tipPercentageInput);
+    setTip(parseFloat(tipAmount));
   };
 
   const validTipPercentages = [15, 18, 20];
 
-  const getValidPercentageString = (validTipPercentage) => `${validTipPercentage}%`;
+  const getValidPercentageString = (validTipPercentage: number) => `${validTipPercentage}%`;
 
   return (
     <>
-      <View class="tip-options" style={styles.row}>
+      <View style={styles.row}>
         {validTipPercentages.map((validTipPercentage, index) => {
           const validTipPercentageString = getValidPercentageString(validTipPercentage);
           return (
             <Button
               key={index}
-              class="tip-percentage"
               title={validTipPercentageString}
               onPress={() => {
                 if (isTipValid(validTipPercentage)) {
-                  changePercentage(total, validTipPercentage, false);
+                  changeTipValues(total, validTipPercentage);
+                  setUseCustomTip(false);
                 }
               }}
             />
@@ -47,18 +41,18 @@ export default function Tip({ total, setTip }) {
         })}
         <Button
           key={validTipPercentages.length}
-          class="tip-percentage"
           title="Custom"
           onPress={() => setUseCustomTip(!useCustomTip)}
         />
       </View>
       {useCustomTip && (
-        <View class="custom-tip-percentage">
+        <View>
           <Text>Enter percentage here:</Text>
           <TextInput
             onChangeText={(tipPercentageInput) => {
-              if (isTipValid(tipPercentageInput)) {
-                changePercentage(total, tipPercentageInput, true);
+              const tipPercentageInputInt = parseInt(tipPercentageInput);
+              if (isTipValid(tipPercentageInputInt)) {
+                changeTipValues(total, tipPercentageInputInt);
               }
             }}
             defaultValue={tipPercentage.toString()}
