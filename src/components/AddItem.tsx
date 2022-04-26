@@ -10,18 +10,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-interface PartyMember {
+interface PartyMemberProps {
   partyMemberName: string;
   onPress: () => void;
   isSelected: boolean;
 }
 
-interface AddItem {
+interface AddItemProps {
   addItem: () => void;
   party: string[];
 }
 
-const PartyMember = ({ partyMemberName, onPress, isSelected }) => (
+const PartyMember = ({ partyMemberName, onPress, isSelected }: PartyMemberProps) => (
   <TouchableOpacity
     testID="party-member"
     onPress={onPress}
@@ -31,7 +31,7 @@ const PartyMember = ({ partyMemberName, onPress, isSelected }) => (
   </TouchableOpacity>
 );
 
-function AddItem({ addItem, party }) {
+function AddItem({ addItem, party }: AddItemProps) {
   const [name, setName] = useState('');
   const [priceString, setPriceString] = useState('');
   const [price, setPrice] = useState(0);
