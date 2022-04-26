@@ -25,7 +25,7 @@ describe('AddItem component', () => {
     jest.clearAllMocks();
   });
 
-  it('valid item is added with first purchaser', async () => {
+  it('valid item is added with first purchaser', () => {
     fireEvent.changeText(priceInput, '5.99');
     fireEvent.changeText(nameInput, 'itemA');
     fireEvent.press(partyMemberA);
@@ -33,7 +33,7 @@ describe('AddItem component', () => {
     expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, ['Person A']);
   });
 
-  it('valid item is added with second purchaser', async () => {
+  it('valid item is added with second purchaser', () => {
     fireEvent.changeText(priceInput, '5.99');
     fireEvent.changeText(nameInput, 'itemA');
     fireEvent.press(partyMemberB);
@@ -41,7 +41,7 @@ describe('AddItem component', () => {
     expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, ['Person B']);
   });
 
-  it('valid item is added both purchasers', async () => {
+  it('valid item is added both purchasers', () => {
     fireEvent.changeText(priceInput, '5.99');
     fireEvent.changeText(nameInput, 'itemA');
     fireEvent.press(partyMemberA);
