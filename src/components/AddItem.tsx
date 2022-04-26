@@ -23,6 +23,7 @@ interface AddItem {
 
 const PartyMember = ({ partyMemberName, onPress, isSelected }) => (
   <TouchableOpacity
+    testID="party-member"
     onPress={onPress}
     style={[styles.item, isSelected ? styles.selectedItemBackground : styles.itemBackground]}
   >
@@ -31,7 +32,6 @@ const PartyMember = ({ partyMemberName, onPress, isSelected }) => (
 );
 
 function AddItem({ addItem, party }) {
-  console.log(party);
   const [name, setName] = useState('');
   const [priceString, setPriceString] = useState('');
   const [price, setPrice] = useState(0);
@@ -69,10 +69,9 @@ function AddItem({ addItem, party }) {
         <TextInput placeholder="Item Name" onChangeText={(value) => setName(value)} value={name} />
         <Text>Price:</Text>
         <TextInput
-          onChangeText={(value) => setPriceString(value)}
-          onBlur={() => {
-            setPrice(parseFloat(priceString));
-            setPriceString(`${parseFloat(priceString)}`);
+          onChangeText={(value) => {
+            setPriceString(value);
+            setPrice(parseFloat(value));
           }}
           value={priceString}
           keyboardType="numeric"
@@ -80,7 +79,12 @@ function AddItem({ addItem, party }) {
         />
         <Text>Purchasers:</Text>
         <SafeAreaView>
-          <FlatList data={party} renderItem={renderPartyMember} extraData={party} />
+          <FlatList
+            data={party}
+            renderItem={renderPartyMember}
+            extraData={party}
+            keyExtractor={(item) => item}
+          />
         </SafeAreaView>
       </View>
       <Button
