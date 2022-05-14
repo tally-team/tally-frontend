@@ -12,8 +12,8 @@ export default function App() {
   const [tip, setTip] = useState(0);
   const [tax, setTax] = useState(0);
 
-  const addItem = (itemName: string, itemPrice: number, itemPurchaser: string) => {
-    setItems({ ...items, [itemName]: [itemPrice, itemPurchaser] });
+  const addItem = (itemName: string, itemPrice: number, itemPurchaserList: Array<string>) => {
+    setItems({ ...items, [itemName]: [itemPrice, itemPurchaserList] });
     setTotal(Number((total + itemPrice).toFixed(2)));
   };
 
@@ -25,10 +25,8 @@ export default function App() {
     <View style={styles.container}>
       <>
         <>
-        <Text>
-          Party
-        </Text>
-          
+          <Text>Party</Text>
+
           {party.map((name, index) => (
             <Text key={`${name}-${index}`}>{name}</Text>
           ))}
@@ -41,25 +39,23 @@ export default function App() {
             {`\n`}
             {`\n`}
           </Text>
-          <Text>
-          Item List
-          </Text>
+          <Text>Item List</Text>
           {Object.keys(items).map((itemName) => {
-            const [itemPrice, purchaser] = [...items[itemName]];
+            const [itemPrice, purchaserList] = [...items[itemName]];
             return (
               <View style={styles.row} key={itemName}>
                 <Text>
                   {itemName}: {itemPrice}
                 </Text>
-                <Text>Purchaser: {purchaser}</Text>
+                <Text>Purchasers: {purchaserList.join(', ')}</Text>
               </View>
             );
           })}
           <Text>
-          {`\n`}
-          {`\n`}
+            {`\n`}
+            {`\n`}
           </Text>
-          <AddItem addItem={addItem} />
+          <AddItem addItem={addItem} party={party} />
           <Tax tax={tax} setTax={setTax} />
           <Text>Tax: {tax.toFixed(2)}</Text>
           <Tip total={total} setTip={setTip} />

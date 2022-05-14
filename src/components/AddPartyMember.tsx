@@ -9,9 +9,7 @@ function AddPartyMember({ addPartyMember }) {
     <>
       <View style={styles.row}>
         <Text>Name:</Text>
-        <TextInput 
-          placeholder="Name"
-          onChangeText={(value) => setName(value)} value={name} />
+        <TextInput placeholder="Name" onChangeText={(value) => setName(value)} value={name} />
       </View>
       <Button
         title="Add Party Member"

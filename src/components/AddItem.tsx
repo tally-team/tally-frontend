@@ -1,50 +1,97 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Button,
+  View,
+  TextInput,
+  FlatList,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 
-function AddItem({ addItem }) {
+interface PartyMemberProps {
+  partyMemberName: string;
+  onPress: () => void;
+  isSelected: boolean;
+}
+
+interface AddItemProps {
+  addItem: () => void;
+  party: string[];
+}
+
+const PartyMember = ({ partyMemberName, onPress, isSelected }: PartyMemberProps) => (
+  <TouchableOpacity
+    testID="party-member"
+    onPress={onPress}
+    style={[styles.item, isSelected ? styles.selectedItemBackground : styles.itemBackground]}
+  >
+    <Text style={isSelected ? styles.selectedItemText : styles.itemText}>{partyMemberName}</Text>
+  </TouchableOpacity>
+);
+
+function AddItem({ addItem, party }: AddItemProps) {
   const [name, setName] = useState('');
+  const [priceString, setPriceString] = useState('');
   const [price, setPrice] = useState(0);
-  const [purchaser, setPurchaser] = useState('');
+  const [purchaserList, setPurchaserList] = useState([]);
 
   const isValidItem = () => {
-    return (
-      name.trim() !== '' && !isNaN(price) && price !== 0 && purchaser.trim() !== ''
-    );
+    return name.trim() !== '' && !isNaN(price) && price !== 0 && purchaserList.length !== 0;
   };
 
   const reset = () => {
     setName('');
     setPrice(0);
-    setPurchaser('');
+    setPriceString('');
+    setPurchaserList([]);
   };
+
+  const renderPartyMember = ({ item }) => (
+    <PartyMember
+      partyMemberName={item}
+      onPress={() => {
+        if (purchaserList.includes(item)) {
+          setPurchaserList(purchaserList.filter((purchaser) => purchaser !== item));
+        } else {
+          setPurchaserList([...purchaserList, item]);
+        }
+      }}
+      isSelected={purchaserList.includes(item)}
+    />
+  );
 
   return (
     <>
       <View style={styles.row}>
         <Text>Name:</Text>
-        <TextInput 
-          placeholder="Item Name"
-          onChangeText={(value) => setName(value)}
-          value={name} />
+        <TextInput placeholder="Item Name" onChangeText={(value) => setName(value)} value={name} />
         <Text>Price:</Text>
         <TextInput
-          placeholder="0"
-          onChangeText={(value) => setPrice(parseFloat(value))}
-          defaultValue={`${price}`}
+          onChangeText={(value) => {
+            setPriceString(value);
+            setPrice(parseFloat(value));
+          }}
+          value={priceString}
           keyboardType="numeric"
+          placeholder="0.00"
         />
-        <Text>Purchaser:</Text>
-        <TextInput 
-          placeholder="Person A"
-          onChangeText={(value) => setPurchaser(value)}
-          value={purchaser} />
+        <Text>Purchasers:</Text>
+        <SafeAreaView>
+          <FlatList
+            data={party}
+            renderItem={renderPartyMember}
+            extraData={party}
+            keyExtractor={(item) => item}
+          />
+        </SafeAreaView>
       </View>
       <Button
         title="Add Item"
         onPress={() => {
           if (isValidItem()) {
-            addItem(name, Number(price.toFixed(2)), purchaser);
+            addItem(name, Number(price.toFixed(2)), purchaserList);
             reset();
           }
         }}
@@ -52,10 +99,6 @@ function AddItem({ addItem }) {
     </>
   );
 }
-
-AddItem.propTypes = {
-  addItem: PropTypes.func.isRequired,
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +108,24 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  item: {
+    padding: 12,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    textAlign: 'center',
+  },
+  itemBackground: {
+    backgroundColor: 'lightskyblue',
+  },
+  selectedItemBackground: {
+    backgroundColor: 'navy',
+  },
+  itemText: {
+    color: 'black',
+  },
+  selectedItemText: {
+    color: 'white',
   },
 });
 

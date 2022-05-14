@@ -1,92 +1,85 @@
 import React from 'react';
-import { Button, TextInput } from 'react-native';
-import { shallow, mount } from 'enzyme';
 import AddItem from '../../components/AddItem';
+import { render, fireEvent } from '@testing-library/react-native';
 
 const mockAddItem = jest.fn();
 
 describe('AddItem component', () => {
   let wrapper;
+  let nameInput;
+  let priceInput;
+  let partyMemberA;
+  let partyMemberB;
+  let addItemButton;
 
   beforeEach(() => {
-    wrapper = shallow(<AddItem addItem={mockAddItem} />);
+    wrapper = render(<AddItem addItem={mockAddItem} party={['Person A', 'Person B']} />);
+    nameInput = wrapper.getByPlaceholderText('Item Name');
+    priceInput = wrapper.getByPlaceholderText('0.00');
+    partyMemberA = wrapper.getAllByTestId('party-member')[0];
+    partyMemberB = wrapper.getAllByTestId('party-member')[1];
+    addItemButton = wrapper.getByText('Add Item');
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('has three text input fields', () => {
-    expect(wrapper.find(TextInput)).toHaveLength(3);
+  it('valid item is added with first purchaser', () => {
+    fireEvent.changeText(priceInput, '5.99');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(partyMemberA);
+    fireEvent.press(addItemButton);
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, ['Person A']);
   });
 
-  it('valid item is added', () => {
-    const itemNameInput = wrapper.find(TextInput).at(0);
-    const itemPriceInput = wrapper.find(TextInput).at(1);
-    const purchaserInput = wrapper.find(TextInput).at(2);
+  it('valid item is added with second purchaser', () => {
+    fireEvent.changeText(priceInput, '5.99');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(partyMemberB);
+    fireEvent.press(addItemButton);
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, ['Person B']);
+  });
 
-    itemNameInput.simulate('changeText', 'itemA');
-    itemPriceInput.simulate('changeText', '5.99');
-    purchaserInput.simulate('changeText', 'PersonA');
-    wrapper.update();
-
-    wrapper.find(Button).simulate('press');
-
-    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, 'PersonA');
+  it('valid item is added both purchasers', () => {
+    fireEvent.changeText(priceInput, '5.99');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(partyMemberA);
+    fireEvent.press(partyMemberB);
+    fireEvent.press(addItemButton);
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 5.99, ['Person A', 'Person B']);
   });
 
   it('valid item is added with price fixed to 2 decimal places', () => {
-    const itemNameInput = wrapper.find(TextInput).at(0);
-    const itemPriceInput = wrapper.find(TextInput).at(1);
-    const purchaserInput = wrapper.find(TextInput).at(2);
+    fireEvent.changeText(priceInput, '4.1231294');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(partyMemberA);
+    fireEvent.press(addItemButton);
 
-    itemNameInput.simulate('changeText', 'itemA');
-    itemPriceInput.simulate('changeText', '4.1231294');
-    purchaserInput.simulate('changeText', 'PersonA');
-    wrapper.update();
-
-    wrapper.find(Button).simulate('press');
-
-    expect(mockAddItem).toHaveBeenCalledWith('itemA', 4.12, 'PersonA');
+    expect(mockAddItem).toHaveBeenCalledWith('itemA', 4.12, ['Person A']);
   });
 
   it('invalid item is not added: item with no name', () => {
-    const itemPriceInput = wrapper.find(TextInput).at(1);
-    const purchaserInput = wrapper.find(TextInput).at(2);
-
-    itemPriceInput.simulate('changeText', '4.1231294');
-    purchaserInput.simulate('changeText', 'PersonA');
-    wrapper.update();
-
-    wrapper.find(Button).simulate('press');
+    fireEvent.changeText(priceInput, '4.1231294');
+    fireEvent.press(partyMemberA);
+    fireEvent.press(addItemButton);
 
     expect(mockAddItem).not.toHaveBeenCalled();
   });
 
   it('invalid item is not added: item with no purchaser', () => {
-    const itemNameInput = wrapper.find(TextInput).at(0);
-    const itemPriceInput = wrapper.find(TextInput).at(1);
-
-    itemNameInput.simulate('changeText', 'itemA');
-    itemPriceInput.simulate('changeText', '4.1231294');
-    wrapper.update();
-
-    wrapper.find(Button).simulate('press');
+    fireEvent.changeText(priceInput, '4.1231294');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(addItemButton);
 
     expect(mockAddItem).not.toHaveBeenCalled();
   });
 
   it('invalid item is not added: invalid price value', () => {
-    const itemNameInput = wrapper.find(TextInput).at(0);
-    const itemPriceInput = wrapper.find(TextInput).at(1);
-    const purchaserInput = wrapper.find(TextInput).at(2);
-
-    itemNameInput.simulate('changeText', 'itemA');
-    itemPriceInput.simulate('changeText', 'abc123');
-    purchaserInput.simulate('changeText', 'PersonA');
-    wrapper.update();
-
-    wrapper.find(Button).simulate('press');
+    fireEvent.changeText(priceInput, 'abc123');
+    fireEvent.changeText(nameInput, 'itemA');
+    fireEvent.press(partyMemberA);
+    fireEvent.press(addItemButton);
 
     expect(mockAddItem).not.toHaveBeenCalled();
   });
