@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Button, View, TextInput } from 'react-native';
-import Tip from '../../components/Tip';
+import Tip from '../../../components/TransactionBuilder/Tip';
 
 const mockSetTip = jest.fn();
 

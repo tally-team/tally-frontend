@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { TextInput } from 'react-native';
-import Tax from '../../components/Tax';
+import Tax from '../../../components/TransactionBuilder/Tax';
 
 const mockSetTax = jest.fn();
 

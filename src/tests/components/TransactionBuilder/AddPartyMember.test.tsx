@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextInput } from 'react-native';
 import { shallow } from 'enzyme';
-import AddPartyMember from '../../components/AddPartyMember';
+import AddPartyMember from '../../../components/TransactionBuilder/AddPartyMember';
 
 const mockAddPartyMember = jest.fn();
 

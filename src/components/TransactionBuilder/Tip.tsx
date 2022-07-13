@@ -32,8 +32,8 @@ export default function Tip({ total, setTip }) {
               title={validTipPercentageString}
               onPress={() => {
                 if (isTipValid(validTipPercentage)) {
-                  changeTipValues(total, validTipPercentage)
-                  setUseCustomTip(false)
+                  changeTipValues(total, validTipPercentage);
+                  setUseCustomTip(false);
                 }
               }}
             />
@@ -50,9 +50,9 @@ export default function Tip({ total, setTip }) {
           <Text>Enter percentage here:</Text>
           <TextInput
             onChangeText={(tipPercentageInput) => {
-              const tipPercentageInputInt = parseInt(tipPercentageInput)
+              const tipPercentageInputInt = parseInt(tipPercentageInput);
               if (isTipValid(tipPercentageInputInt)) {
-                changeTipValues(total, tipPercentageInputInt)
+                changeTipValues(total, tipPercentageInputInt);
               }
             }}
             defaultValue={tipPercentage.toString()}

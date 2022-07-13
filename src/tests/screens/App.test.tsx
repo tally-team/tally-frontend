@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../App';
-import AddItem from '../../components/AddItem';
-import AddPartyMember from '../../components/AddPartyMember';
-import Tip from '../../components/Tip';
+
+import App from '../../pages/App';
+
+import AddItem from '../../components/TransactionBuilder';
+import AddPartyMember from '../../components/TransactionBuilder';
+import Tip from '../../components/TransactionBuilder';
 
 describe('App page', () => {
   let wrapper;

@@ -21,3 +21,4 @@ react native front end app for tally application
   - Make sure you have an emulator running (Android Studio > AVD > Select play on a device)
 - `npm run ios`: start ios app
 - `npm run web`: start web app
+- `npm run test`: run unit tests

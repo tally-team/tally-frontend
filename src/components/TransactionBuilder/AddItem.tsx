@@ -8,9 +8,7 @@ function AddItem({ addItem }) {
   const [purchaser, setPurchaser] = useState('');
 
   const isValidItem = () => {
-    return (
-      name.trim() !== '' && !isNaN(price) && price !== 0 && purchaser.trim() !== ''
-    );
+    return name.trim() !== '' && !isNaN(price) && price !== 0 && purchaser.trim() !== '';
   };
 
   const reset = () => {
@@ -23,10 +21,7 @@ function AddItem({ addItem }) {
     <>
       <View style={styles.row}>
         <Text>Name:</Text>
-        <TextInput 
-          placeholder="Item Name"
-          onChangeText={(value) => setName(value)}
-          value={name} />
+        <TextInput placeholder="Item Name" onChangeText={(value) => setName(value)} value={name} />
         <Text>Price:</Text>
         <TextInput
           placeholder="0"
@@ -35,10 +30,11 @@ function AddItem({ addItem }) {
           keyboardType="numeric"
         />
         <Text>Purchaser:</Text>
-        <TextInput 
+        <TextInput
           placeholder="Person A"
           onChangeText={(value) => setPurchaser(value)}
-          value={purchaser} />
+          value={purchaser}
+        />
       </View>
       <Button
         title="Add Item"

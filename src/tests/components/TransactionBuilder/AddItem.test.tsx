@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextInput } from 'react-native';
 import { shallow, mount } from 'enzyme';
-import AddItem from '../../components/AddItem';
+import AddItem from '../../../components/TransactionBuilder/AddItem';
 
 const mockAddItem = jest.fn();
 

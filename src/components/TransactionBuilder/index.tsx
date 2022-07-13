@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AddItem from './components/AddItem';
-import AddPartyMember from './components/AddPartyMember';
-import Tax from './components/Tax';
-import Tip from './components/Tip';
+
+import { useFormik } from 'formik';
+
+import AddItem from './AddItem';
+import AddPartyMember from './AddPartyMember';
+import Tax from './Tax';
+import Tip from './Tip';
 
 export default function App() {
+  const transactionBuilder = useFormik({
+    initialValues: {
+      email: '',
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   const [total, setTotal] = useState(0);
   const [items, setItems] = useState({});
   const [party, setParty] = useState([]);
@@ -25,10 +36,8 @@ export default function App() {
     <View style={styles.container}>
       <>
         <>
-        <Text>
-          Party
-        </Text>
-          
+          <Text>Party</Text>
+
           {party.map((name, index) => (
             <Text key={`${name}-${index}`}>{name}</Text>
           ))}
@@ -41,9 +50,7 @@ export default function App() {
             {`\n`}
             {`\n`}
           </Text>
-          <Text>
-          Item List
-          </Text>
+          <Text>Item List</Text>
           {Object.keys(items).map((itemName) => {
             const [itemPrice, purchaser] = [...items[itemName]];
             return (
@@ -56,8 +63,8 @@ export default function App() {
             );
           })}
           <Text>
-          {`\n`}
-          {`\n`}
+            {`\n`}
+            {`\n`}
           </Text>
           <AddItem addItem={addItem} />
           <Tax tax={tax} setTax={setTax} />
