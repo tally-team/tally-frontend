@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Button, View, TextInput } from 'react-native';
 import Tip from '../../components/Tip';
+import { render, fireEvent } from '@testing-library/react-native';
 
 const mockSetTip = jest.fn();
 
@@ -10,7 +9,7 @@ describe('Tip component', () => {
   const total = 15;
 
   beforeEach(() => {
-    wrapper = shallow(<Tip total={total} setTip={mockSetTip} />);
+    wrapper = render(<Tip total={total} setTip={mockSetTip} />);
   });
 
   afterEach(() => {
@@ -20,14 +19,12 @@ describe('Tip component', () => {
   const calculateTip = (percentage: number) => parseFloat((percentage * total).toFixed(2));
 
   const setUpCustomTestScenarios = () => {
-    const tipOptions = wrapper.find(View).at(0);
-    const selectCustomTip = tipOptions.find(Button).at(3);
-
-    selectCustomTip.simulate('press');
+    const selectCustomTipButton = wrapper.getByText('Custom');
+    fireEvent.press(selectCustomTipButton);
   };
 
   it('has four tip buttons', () => {
-    expect(wrapper.find(Button)).toHaveLength(4);
+    expect(wrapper.getAllByRole('button')).toHaveLength(4);
   });
 
   it('valid tip is not calculated when no percentage or amount is selected', () => {
@@ -35,33 +32,23 @@ describe('Tip component', () => {
   });
 
   it('valid tip is calculated when selecting 15%', () => {
-    const tipOptions = wrapper.find(View).at(0);
-    const fifteenPercentTip = tipOptions.find(Button).at(0);
+    const fifteenPercentTipButton = wrapper.getByText('15%');
     const expectedTip = calculateTip(0.15);
-
-    fifteenPercentTip.simulate('press');
-
-    wrapper.update();
+    fireEvent.press(fifteenPercentTipButton);
 
     expect(mockSetTip).toHaveBeenCalledWith(expectedTip);
   });
 
   it('valid custom tip is enabled when selecting custom tip', () => {
-    const tipOptions = wrapper.find(View).at(0);
-    const selectCustomTip = tipOptions.find(Button).at(3);
-
-    expect(wrapper.find(View)).toHaveLength(1);
-    selectCustomTip.simulate('press');
-    expect(wrapper.find(View)).toHaveLength(2);
+    setUpCustomTestScenarios();
+    expect(wrapper.queryByText('Enter percentage here:')).not.toBeNull();
   });
 
   it('valid custom tip is calculated when entering tip percentage', () => {
     setUpCustomTestScenarios();
 
-    const customTip = wrapper.find(View).at(1);
-    const customTipTextInput = customTip.find(TextInput).at(0).shallow();
-
-    customTipTextInput.simulate('changeText', '12');
+    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    fireEvent.changeText(customTipTextInput, '12');
     const expectedTip = calculateTip(0.12);
 
     expect(mockSetTip).toHaveBeenCalledWith(expectedTip);
@@ -70,10 +57,8 @@ describe('Tip component', () => {
   it('invalid custom tip is not calculated when entering a tip percentage larger than 100', () => {
     setUpCustomTestScenarios();
 
-    const customTip = wrapper.find(View).at(1);
-    const customTipTextInput = customTip.find(TextInput).at(0).shallow();
-
-    customTipTextInput.simulate('changeText', '344');
+    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    fireEvent.changeText(customTipTextInput, '344');
 
     expect(mockSetTip).not.toHaveBeenCalled();
   });
@@ -81,10 +66,8 @@ describe('Tip component', () => {
   it('invalid custom tip is not calculated when entering a non numeric tip percentage', () => {
     setUpCustomTestScenarios();
 
-    const customTip = wrapper.find(View).at(1);
-    const customTipTextInput = customTip.find(TextInput).at(0).shallow();
-
-    customTipTextInput.simulate('changeText', '@#!@#dfwerc');
+    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    fireEvent.changeText(customTipTextInput, '@#!@#dfwerc');
 
     expect(mockSetTip).not.toHaveBeenCalled();
   });
@@ -92,13 +75,11 @@ describe('Tip component', () => {
   it('valid custom tip remains after invalid tip was entered', () => {
     setUpCustomTestScenarios();
 
-    const customTip = wrapper.find(View).at(1);
-    const customTipTextInput = customTip.find(TextInput).at(0).shallow();
-
-    customTipTextInput.simulate('changeText', '12');
+    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    fireEvent.changeText(customTipTextInput, '12');
     const expectedTip = calculateTip(0.12);
 
-    customTipTextInput.simulate('changeText', 'dfwerc');
+    fireEvent.changeText(customTipTextInput, 'dfwerc');
 
     expect(mockSetTip).toHaveBeenNthCalledWith(1, expectedTip);
     expect(mockSetTip).not.toHaveBeenNthCalledWith(2);

@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { TextInput } from 'react-native';
 import Tax from '../../components/Tax';
+import { render, fireEvent } from '@testing-library/react-native';
 
 const mockSetTax = jest.fn();
 
@@ -11,8 +10,8 @@ describe('Tax component', () => {
   const tax = 15;
 
   beforeEach(() => {
-    wrapper = shallow(<Tax tax={tax} setTax={mockSetTax} />);
-    tipTextInput = wrapper.find(TextInput).at(0);
+    wrapper = render(<Tax tax={tax} setTax={mockSetTax} />);
+    tipTextInput = wrapper.getByTestId('tax-input');
   });
 
   afterEach(() => {
@@ -20,14 +19,12 @@ describe('Tax component', () => {
   });
 
   it('valid tax is set after typing a valid decimal string', () => {
-    tipTextInput.simulate('changeText', '16.00');
-
+    fireEvent.changeText(tipTextInput, '16.00');
     expect(mockSetTax).toHaveBeenCalledWith(16);
   });
 
   it('valid tax is set after typing a valid int string', () => {
-    tipTextInput.simulate('changeText', '200');
-
+    fireEvent.changeText(tipTextInput, '200');
     expect(mockSetTax).toHaveBeenCalledWith(200);
   });
 
@@ -42,7 +39,7 @@ describe('Tax component', () => {
     ];
 
     invalidTipAmounts.forEach((invalidTipAmount) => {
-      tipTextInput.simulate('changeText', invalidTipAmount);
+      fireEvent.changeText(tipTextInput, invalidTipAmount);
       expect(mockSetTax).not.toHaveBeenCalled();
     });
   });

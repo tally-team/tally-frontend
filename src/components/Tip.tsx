@@ -58,6 +58,7 @@ export default function Tip({ total, setTip }) {
             defaultValue={tipPercentage.toString()}
             maxLength={2}
             keyboardType="numeric"
+            testID="custom-tip-input"
           />
         </View>
       )}

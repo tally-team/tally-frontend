@@ -25,6 +25,7 @@ export default function Tax({ tax, setTax }) {
         }}
         defaultValue={tax.toString()}
         keyboardType="numeric"
+        testID="tax-input"
       />
     </View>
   );

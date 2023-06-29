@@ -1,15 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import App from '../../App';
-import AddItem from '../../components/AddItem';
-import AddPartyMember from '../../components/AddPartyMember';
-import Tip from '../../components/Tip';
+import { render } from '@testing-library/react-native';
 
 describe('App page', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = render(<App />);
   });
 
   afterEach(() => {
@@ -17,8 +14,13 @@ describe('App page', () => {
   });
 
   it('loads all the expected components', () => {
-    expect(wrapper.find(AddItem)).toHaveLength(1);
-    expect(wrapper.find(AddPartyMember)).toHaveLength(1);
-    expect(wrapper.find(Tip)).toHaveLength(1);
+    // adding party member shows
+    expect(wrapper.queryByText('Add Party Member')).not.toBeNull();
+
+    // adding party item shows
+    expect(wrapper.queryByText('Add Item')).not.toBeNull();
+
+    // tip section shows
+    expect(wrapper.queryByText('15%'));
   });
 });

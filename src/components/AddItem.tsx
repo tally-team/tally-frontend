@@ -17,7 +17,7 @@ interface PartyMemberProps {
 }
 
 interface AddItemProps {
-  addItem: () => void;
+  addItem: (itemName: string, itemPrice: number, itemPurchaserList: Array<string>) => void;
   party: string[];
 }
 
