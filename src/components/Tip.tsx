@@ -22,7 +22,7 @@ export default function Tip({ total, setTip }) {
   const getValidPercentageString = (validTipPercentage: number) => `${validTipPercentage}%`;
 
   return (
-    <>
+    <div>
       <View style={styles.row}>
         {validTipPercentages.map((validTipPercentage, index) => {
           const validTipPercentageString = getValidPercentageString(validTipPercentage);
@@ -58,11 +58,10 @@ export default function Tip({ total, setTip }) {
             defaultValue={tipPercentage.toString()}
             maxLength={2}
             keyboardType="numeric"
-            testID="custom-tip-input"
           />
         </View>
       )}
-    </>
+    </div>
   );
 }
 

@@ -23,7 +23,6 @@ interface AddItemProps {
 
 const PartyMember = ({ partyMemberName, onPress, isSelected }: PartyMemberProps) => (
   <TouchableOpacity
-    testID="party-member"
     onPress={onPress}
     style={[styles.item, isSelected ? styles.selectedItemBackground : styles.itemBackground]}
   >

@@ -1,6 +1,7 @@
 import React from 'react';
 import Tip from '../../components/Tip';
 import { render, fireEvent } from '@testing-library/react-native';
+import { TextInput } from 'react-native';
 
 const mockSetTip = jest.fn();
 
@@ -47,7 +48,7 @@ describe('Tip component', () => {
   it('valid custom tip is calculated when entering tip percentage', () => {
     setUpCustomTestScenarios();
 
-    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    const customTipTextInput = wrapper.root.findByType(TextInput);
     fireEvent.changeText(customTipTextInput, '12');
     const expectedTip = calculateTip(0.12);
 
@@ -57,7 +58,7 @@ describe('Tip component', () => {
   it('invalid custom tip is not calculated when entering a tip percentage larger than 100', () => {
     setUpCustomTestScenarios();
 
-    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    const customTipTextInput = wrapper.root.findByType(TextInput);
     fireEvent.changeText(customTipTextInput, '344');
 
     expect(mockSetTip).not.toHaveBeenCalled();
@@ -66,7 +67,7 @@ describe('Tip component', () => {
   it('invalid custom tip is not calculated when entering a non numeric tip percentage', () => {
     setUpCustomTestScenarios();
 
-    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    const customTipTextInput = wrapper.root.findByType(TextInput);
     fireEvent.changeText(customTipTextInput, '@#!@#dfwerc');
 
     expect(mockSetTip).not.toHaveBeenCalled();
@@ -75,7 +76,7 @@ describe('Tip component', () => {
   it('valid custom tip remains after invalid tip was entered', () => {
     setUpCustomTestScenarios();
 
-    const customTipTextInput = wrapper.getByTestId('custom-tip-input');
+    const customTipTextInput = wrapper.root.findByType(TextInput);
     fireEvent.changeText(customTipTextInput, '12');
     const expectedTip = calculateTip(0.12);
 
