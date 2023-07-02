@@ -21,6 +21,6 @@ describe('App page', () => {
     expect(wrapper.queryByText('Add Item')).not.toBeNull();
 
     // tip section shows
-    expect(wrapper.queryByText('15%'));
+    expect(wrapper.queryByText('15%')).not.toBeNull();
   });
 });
