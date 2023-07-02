@@ -17,13 +17,12 @@ interface PartyMemberProps {
 }
 
 interface AddItemProps {
-  addItem: () => void;
+  addItem: (itemName: string, itemPrice: number, itemPurchaserList: Array<string>) => void;
   party: string[];
 }
 
 const PartyMember = ({ partyMemberName, onPress, isSelected }: PartyMemberProps) => (
   <TouchableOpacity
-    testID="party-member"
     onPress={onPress}
     style={[styles.item, isSelected ? styles.selectedItemBackground : styles.itemBackground]}
   >

@@ -16,8 +16,8 @@ describe('AddItem component', () => {
     wrapper = render(<AddItem addItem={mockAddItem} party={['Person A', 'Person B']} />);
     nameInput = wrapper.getByPlaceholderText('Item Name');
     priceInput = wrapper.getByPlaceholderText('0.00');
-    partyMemberA = wrapper.getAllByTestId('party-member')[0];
-    partyMemberB = wrapper.getAllByTestId('party-member')[1];
+    partyMemberA = wrapper.getByText('Person A');
+    partyMemberB = wrapper.getByText('Person B');
     addItemButton = wrapper.getByText('Add Item');
   });
 
