@@ -66,7 +66,7 @@ export default function App() {
         return {
           ...state,
           items: updatedItems,
-          total: total,
+          total: Number(total.toFixed(2)),
         };
       }
       case Actions.ADD_PARTY_MEMBER: {
