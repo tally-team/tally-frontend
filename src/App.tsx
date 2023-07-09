@@ -51,16 +51,22 @@ export default function App() {
   const reducer = (state: AppStateType, action: Partial<ActionArgs>) => {
     switch (action.type) {
       case Actions.ADD_ITEM: {
+        const updatedItems = {
+          ...state.items,
+          [action.name]: {
+            price: action.price,
+            purchaserList: action.purchaserList,
+          },
+        };
+        const total = Object.values(updatedItems).reduce(
+          (sum, itemDetail) => sum + itemDetail.price,
+          0
+        );
+
         return {
           ...state,
-          items: {
-            ...state.items,
-            [action.name]: {
-              price: action.price,
-              purchaserList: action.purchaserList,
-            },
-          },
-          total: Number((state.total + action.price).toFixed(2)),
+          items: updatedItems,
+          total: total,
         };
       }
       case Actions.ADD_PARTY_MEMBER: {
