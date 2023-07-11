@@ -25,18 +25,31 @@ type AppStateType = {
   tax: number;
 };
 
+type PartyMemberDetailsType = {
+  name: string;
+};
+
+type ItemDetailsType = {
+  name: string;
+  price: number;
+  purchaserList: string[];
+};
+
+type TaxDetailsType = {
+  amount: number;
+};
+
+type TipDetails = {
+  amount: number;
+};
+
 type ActionArgs = {
   type: Actions;
 
-  // item name or party member name
-  name: string;
-
-  // item details
-  price: number;
-  purchaserList: string[];
-
-  // tax or tip amount
-  amount: number;
+  partyMemberDetails: PartyMemberDetailsType;
+  itemDetails: ItemDetailsType;
+  taxDetails: TaxDetailsType;
+  tipDetails: TipDetails;
 };
 
 export default function App() {
@@ -51,11 +64,12 @@ export default function App() {
   const reducer = (state: AppStateType, action: Partial<ActionArgs>) => {
     switch (action.type) {
       case Actions.ADD_ITEM: {
+        const { name, price, purchaserList } = action.itemDetails;
         const updatedItems = {
           ...state.items,
-          [action.name]: {
-            price: action.price,
-            purchaserList: action.purchaserList,
+          [name]: {
+            price: price,
+            purchaserList: purchaserList,
           },
         };
         const total = Object.values(updatedItems).reduce(
@@ -70,21 +84,24 @@ export default function App() {
         };
       }
       case Actions.ADD_PARTY_MEMBER: {
+        const { name } = action.partyMemberDetails;
         return {
           ...state,
-          party: [...state.party, action.name],
+          party: [...state.party, name],
         };
       }
       case Actions.SET_TIP: {
+        const { amount } = action.tipDetails;
         return {
           ...state,
-          tip: action.amount,
+          tip: amount,
         };
       }
       case Actions.SET_TAX: {
+        const { amount } = action.taxDetails;
         return {
           ...state,
-          tax: action.amount,
+          tax: amount,
         };
       }
     }
@@ -95,30 +112,38 @@ export default function App() {
   const addItem = (name: string, price: number, purchaserList: Array<string>) => {
     dispatch({
       type: Actions.ADD_ITEM,
-      name: name,
-      price: price,
-      purchaserList: purchaserList,
+      itemDetails: {
+        name: name,
+        price: price,
+        purchaserList: purchaserList,
+      },
     });
   };
 
   const addPartyMember = (name: string) => {
     dispatch({
       type: Actions.ADD_PARTY_MEMBER,
-      name: name,
+      partyMemberDetails: {
+        name: name,
+      },
     });
   };
 
   const setTip = (amount: number) => {
     dispatch({
       type: Actions.SET_TIP,
-      amount: amount,
+      tipDetails: {
+        amount: amount,
+      },
     });
   };
 
   const setTax = (amount: number) => {
     dispatch({
       type: Actions.SET_TAX,
-      amount: amount,
+      taxDetails: {
+        amount: amount,
+      },
     });
   };
 
