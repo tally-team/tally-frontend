@@ -51,5 +51,9 @@
   "lint-staged": {
     "*.{js, ts}": "eslint --cache --fix",
     "*.{ts,tsx,js,tsx,css,md}": "prettier --write"
+  },
+  "engines" : { 
+    "node" : ">=16.0.0",
+    "npm": ">=8.1.0"
   }
 }

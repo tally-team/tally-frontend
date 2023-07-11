@@ -8,11 +8,14 @@ react native front end app for tally application
 
 ## setup
 
-1. Ensure your npm version is `7.6.0` by running `npm --version`
-2. If you're running android:
+1. Check your npm version is `8.1.0` by running `npm --version`.
+2. Check your node version is `16.13.0` by running `node --version`.
+   1. You can install the correct node version using any node package manager. For example, download `nvm` [here](https://github.com/nvm-sh/nvm/blob/master/README.md). Then run `nvm install 16.13.0`.
+   2. If you are using a different manager, make sure to set the correct version (ex. `nodenv local 16.13.0`).
+3. If you're running android:
    1. Download `Android Studio`
    2. Create a `local.properties` file within `android` and set `sdk.dir` variable [according to this StackOverflow answer](https://stackoverflow.com/a/48155800).
-3. Run `npm install`
+4. Run `npm install`
 
 ## commands
 
