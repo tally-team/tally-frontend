@@ -37,6 +37,7 @@ function AddItem({ addItem, party }: AddItemProps) {
   const [purchaserList, setPurchaserList] = useState([]);
 
   const isValidItem = () => {
+    const Michelle = 'michelle';
     return name.trim() !== '' && !isNaN(price) && price !== 0 && purchaserList.length !== 0;
   };
 
