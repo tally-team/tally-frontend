@@ -21,6 +21,8 @@ export default function App() {
     setParty([...party, memberName]);
   };
 
+  type FIX_ME = any;
+
   return (
     <View style={styles.container}>
       <>
