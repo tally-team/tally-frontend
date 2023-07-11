@@ -45,7 +45,6 @@ type TipDetails = {
 
 type ActionArgs = {
   type: Actions;
-
   partyMemberDetails: PartyMemberDetailsType;
   itemDetails: ItemDetailsType;
   taxDetails: TaxDetailsType;
