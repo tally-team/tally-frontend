@@ -12,7 +12,7 @@ enum Actions {
   SET_TAX = 'set_tax',
 }
 
-type AppStateType = {
+type AppState = {
   total: number;
   items: {
     [name: string]: {
@@ -25,17 +25,17 @@ type AppStateType = {
   tax: number;
 };
 
-type PartyMemberDetailsType = {
+type PartyMemberDetails = {
   name: string;
 };
 
-type ItemDetailsType = {
+type ItemDetails = {
   name: string;
   price: number;
   purchaserList: string[];
 };
 
-type TaxDetailsType = {
+type TaxDetails = {
   amount: number;
 };
 
@@ -45,14 +45,14 @@ type TipDetails = {
 
 type ActionArgs = {
   type: Actions;
-  partyMemberDetails: PartyMemberDetailsType;
-  itemDetails: ItemDetailsType;
-  taxDetails: TaxDetailsType;
+  partyMemberDetails: PartyMemberDetails;
+  itemDetails: ItemDetails;
+  taxDetails: TaxDetails;
   tipDetails: TipDetails;
 };
 
 export default function App() {
-  const initialState: AppStateType = {
+  const initialState: AppState = {
     total: 0,
     items: {},
     party: [],
@@ -60,7 +60,7 @@ export default function App() {
     tax: 0,
   };
 
-  const reducer = (state: AppStateType, action: Partial<ActionArgs>) => {
+  const reducer = (state: AppState, action: Partial<ActionArgs>) => {
     switch (action.type) {
       case Actions.ADD_ITEM: {
         const { name, price, purchaserList } = action.itemDetails;
