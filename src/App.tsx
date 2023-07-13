@@ -4,52 +4,8 @@ import AddItem from './components/AddItem';
 import AddPartyMember from './components/AddPartyMember';
 import Tax from './components/Tax';
 import Tip from './components/Tip';
-
-enum Actions {
-  ADD_ITEM = 'add_item',
-  ADD_PARTY_MEMBER = 'add_party_member',
-  SET_TIP = 'set_tip',
-  SET_TAX = 'set_tax',
-}
-
-type AppState = {
-  total: number;
-  items: {
-    [name: string]: {
-      price: number;
-      purchaserList: string[];
-    };
-  };
-  party: string[];
-  tip: number;
-  tax: number;
-};
-
-type PartyMemberDetails = {
-  name: string;
-};
-
-type ItemDetails = {
-  name: string;
-  price: number;
-  purchaserList: string[];
-};
-
-type TaxDetails = {
-  amount: number;
-};
-
-type TipDetails = {
-  amount: number;
-};
-
-type ActionArgs = {
-  type: Actions;
-  partyMemberDetails: PartyMemberDetails;
-  itemDetails: ItemDetails;
-  taxDetails: TaxDetails;
-  tipDetails: TipDetails;
-};
+import { DispatchActions } from './constants';
+import { DispatchActionArgs, AppState } from './types';
 
 export default function App() {
   const initialState: AppState = {
@@ -60,9 +16,9 @@ export default function App() {
     tax: 0,
   };
 
-  const reducer = (state: AppState, action: Partial<ActionArgs>) => {
+  const reducer = (state: AppState, action: Partial<DispatchActionArgs>) => {
     switch (action.type) {
-      case Actions.ADD_ITEM: {
+      case DispatchActions.ADD_ITEM: {
         const { name, price, purchaserList } = action.itemDetails;
         const updatedItems = {
           ...state.items,
@@ -82,21 +38,21 @@ export default function App() {
           total: Number(total.toFixed(2)),
         };
       }
-      case Actions.ADD_PARTY_MEMBER: {
+      case DispatchActions.ADD_PARTY_MEMBER: {
         const { name } = action.partyMemberDetails;
         return {
           ...state,
           party: [...state.party, name],
         };
       }
-      case Actions.SET_TIP: {
+      case DispatchActions.SET_TIP: {
         const { amount } = action.tipDetails;
         return {
           ...state,
           tip: amount,
         };
       }
-      case Actions.SET_TAX: {
+      case DispatchActions.SET_TAX: {
         const { amount } = action.taxDetails;
         return {
           ...state,
@@ -110,7 +66,7 @@ export default function App() {
 
   const addItem = (name: string, price: number, purchaserList: Array<string>) => {
     dispatch({
-      type: Actions.ADD_ITEM,
+      type: DispatchActions.ADD_ITEM,
       itemDetails: {
         name: name,
         price: price,
@@ -121,7 +77,7 @@ export default function App() {
 
   const addPartyMember = (name: string) => {
     dispatch({
-      type: Actions.ADD_PARTY_MEMBER,
+      type: DispatchActions.ADD_PARTY_MEMBER,
       partyMemberDetails: {
         name: name,
       },
@@ -130,7 +86,7 @@ export default function App() {
 
   const setTip = (amount: number) => {
     dispatch({
-      type: Actions.SET_TIP,
+      type: DispatchActions.SET_TIP,
       tipDetails: {
         amount: amount,
       },
@@ -139,7 +95,7 @@ export default function App() {
 
   const setTax = (amount: number) => {
     dispatch({
-      type: Actions.SET_TAX,
+      type: DispatchActions.SET_TAX,
       taxDetails: {
         amount: amount,
       },
