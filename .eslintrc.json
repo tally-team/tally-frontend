@@ -5,11 +5,14 @@
         "jest": true
     },
     "extends": [
-        "plugin:react/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-native/all",
         "airbnb",
         "airbnb/hooks",
         "prettier"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -18,13 +21,14 @@
         "sourceType": "module"
     },
     "plugins": [
+        "@typescript-eslint",
         "react",
         "react-native",
         "jest"
     ],
     "rules": {
         // allow .js files to contain JSX code
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
             
         // prevent eslint to complain about the "styles" variable being used before it was defined
         "no-use-before-define": ["error", { "variables": false }],

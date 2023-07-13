@@ -6,9 +6,7 @@ export default function Tip({ total, setTip }) {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [useCustomTip, setUseCustomTip] = useState(false);
 
-  const isTipValid = (tipPercentageInput: number) => {
-    return tipPercentageInput >= 0 && tipPercentageInput < 100;
-  };
+  const isTipValid = (tipPercentageInput: number) => tipPercentageInput >= 0 && tipPercentageInput < 100;
 
   const changeTipValues = (total: number, tipPercentageInput: number) => {
     const tipAmount = ((total * tipPercentageInput) / 100).toFixed(2);
@@ -71,10 +69,6 @@ Tip.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
