@@ -31,7 +31,7 @@
 
         // ignore errors for the react-navigation package
         "react/prop-types": ["error", {"ignore": ["navigation", "navigation.navigate"]}],
-        "no-unused-vars": "warn",
+        "no-unused-vars": "error",
         "radix": ["error", "as-needed"],
         "no-shadow": "warn",
         "no-restricted-globals": "warn",
