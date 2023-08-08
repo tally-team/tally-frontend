@@ -57,5 +57,9 @@
       "react-app/jest"
     ]
   },
-  "private": true
+  "private": true,
+  "engines" : { 
+    "node" : ">=18.16.1",
+    "npm": ">=9.5.1"
+  }
 }
