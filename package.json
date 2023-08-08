@@ -53,7 +53,7 @@
     "*.{ts,tsx,js,tsx,css,md}": "prettier --write"
   },
   "engines" : { 
-    "node" : ">=16.0.0",
-    "npm": ">=8.1.0"
+    "node" : ">=18.16.1",
+    "npm": ">=9.5.1"
   }
 }
