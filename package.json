@@ -57,6 +57,5 @@
       "react-app/jest"
     ]
   },
-  "private": true,
-  "proxy": "http://localhost:8000"
+  "private": true
 }
