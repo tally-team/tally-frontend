@@ -24,5 +24,5 @@ react native front end app for tally application
 
 ## local dev with server
 
-To run with the server, make sure you have tally-backend setup and running (`npm run start-dev`). The server needs to run 
+To run with the server, make sure you have tally-backend setup and running (`npm run start-dev`). The server needs to be up and running 
 prior to making API calls.
