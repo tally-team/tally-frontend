@@ -47,6 +47,8 @@
         "no-shadow": "warn",
         "no-restricted-globals": "warn",
         "react/no-array-index-key": "warn",
+        // temporarily added this extension to ignore warnings regarding missing extension from import paths
+        // TODO: Remove rule as part of https://github.com/tally-team/tally-frontend/issues/54
         "import/extensions": "off"
     }
 }
