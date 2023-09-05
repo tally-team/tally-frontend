@@ -47,6 +47,18 @@
         "no-shadow": "warn",
         "no-restricted-globals": "warn",
         "react/no-array-index-key": "warn",
+
+        // disable rule for test files to ignore error regarding how @testing-library/react-native should be listed in 
+        // the project's dependencies and not devDependencies
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+               "devDependencies": [
+                    "**/*.test.ts",
+                    "**/*.test.tsx"
+               ]
+            }
+        ],
         // temporarily added this extension to ignore warnings regarding missing extension from import paths
         // TODO: Remove rule as part of https://github.com/tally-team/tally-frontend/issues/54
         "import/extensions": "off"
