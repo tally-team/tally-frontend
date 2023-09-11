@@ -1,11 +1,13 @@
 import React, { useReducer } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import AddItem from './components/AddItem';
 import AddPartyMember from './components/AddPartyMember';
 import Tax from './components/Tax';
 import Tip from './components/Tip';
 import { DispatchActions } from './constants';
 import { DispatchActionArgs, AppState } from './types';
+
+const APP_CONTAINER_COLOR = '#fff';
 
 export default function App() {
   const initialState: AppState = {
@@ -23,8 +25,8 @@ export default function App() {
         const updatedItems = {
           ...state.items,
           [name]: {
-            price: price,
-            purchaserList: purchaserList,
+            price,
+            purchaserList,
           },
         };
         const total = Object.values(updatedItems).reduce(
@@ -59,6 +61,8 @@ export default function App() {
           tax: amount,
         };
       }
+      default:
+        return state;
     }
   };
 
@@ -68,9 +72,9 @@ export default function App() {
     dispatch({
       type: DispatchActions.ADD_ITEM,
       itemDetails: {
-        name: name,
-        price: price,
-        purchaserList: purchaserList,
+        name,
+        price,
+        purchaserList,
       },
     });
   };
@@ -79,7 +83,7 @@ export default function App() {
     dispatch({
       type: DispatchActions.ADD_PARTY_MEMBER,
       partyMemberDetails: {
-        name: name,
+        name,
       },
     });
   };
@@ -88,7 +92,7 @@ export default function App() {
     dispatch({
       type: DispatchActions.SET_TIP,
       tipDetails: {
-        amount: amount,
+        amount,
       },
     });
   };
@@ -97,7 +101,7 @@ export default function App() {
     dispatch({
       type: DispatchActions.SET_TAX,
       taxDetails: {
-        amount: amount,
+        amount,
       },
     });
   };
@@ -143,6 +147,12 @@ export default function App() {
           <Text>Tip: {state.tip.toFixed(2)}</Text>
         </>
         <Text>Subtotal: {state.total}</Text>
+        <Button
+          onPress={() => {
+            console.log(state)
+          }}
+          title="Submit"
+        />
       </>
     </View>
   );
@@ -150,8 +160,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: APP_CONTAINER_COLOR,
     flex: 1,
-    backgroundColor: '#fff',
   },
   row: {
     flexDirection: 'row',

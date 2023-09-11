@@ -1,7 +1,7 @@
 import React from 'react';
-import App from '../../App';
 import { render, fireEvent, within } from '@testing-library/react-native';
 import { FlatList } from 'react-native';
+import App from '../../App';
 import '@testing-library/jest-native';
 
 describe('App page', () => {
@@ -56,6 +56,9 @@ describe('App page', () => {
 
     // tip section shows
     expect(wrapper.queryByText('15%')).toBeOnTheScreen();
+
+    // submit button shows
+    expect(wrapper.getByText('Submit')).toBeOnTheScreen();
   });
 
   it('shows correct subtotal', () => {
