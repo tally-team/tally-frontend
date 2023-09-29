@@ -1,7 +1,8 @@
-const { defaults: tsjPreset } = require('ts-jest/presets');
 
-/** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+import { defaults as tsjPreset } from 'ts-jest/presets';
+import type { JestConfigWithTsJest } from 'ts-jest';
+
+const jestConfig: JestConfigWithTsJest = {
   ...tsjPreset,
   preset: 'react-native',
   transform: {
@@ -19,3 +20,5 @@ module.exports = {
     'node_modules/(?!(jest-)?react-native|@react-native|@react-native-community|@react-navigation)'
   ]
 };
+
+export default jestConfig;
