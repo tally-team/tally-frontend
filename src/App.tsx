@@ -1,5 +1,7 @@
 import React, { useReducer } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddItem from './components/AddItem';
 import AddPartyMember from './components/AddPartyMember';
 import Tax from './components/Tax';
@@ -9,7 +11,9 @@ import { DispatchActionArgs, AppState } from './types';
 
 const APP_CONTAINER_COLOR = '#fff';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
   const initialState: AppState = {
     total: 0,
     items: {},
@@ -155,6 +159,16 @@ export default function App() {
         />
       </>
     </View>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
