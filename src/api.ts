@@ -1,10 +1,24 @@
 import axios from "axios";
 
-const getUsers = async () => {
+type Item = {
+  name: string,
+  cost: number,
+  people: string[]
+};
+
+type Transaction = {
+  items: Item[],
+  tax: number,
+  tip: number,
+  party: string[]
+};
+
+export const getUsers = async () => {
   const { data } = await axios.get('http://localhost:8080/api/users')
   return data;
 }
 
-export default {
-  getUsers
+export const submitTransaction = async (transaction: Transaction) => {
+  const { data } = await axios.post('http://localhost:8080/api/transactionBreakdown', transaction)
+  return data;
 }

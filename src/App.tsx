@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useRef } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +8,7 @@ import Tax from './components/Tax';
 import Tip from './components/Tip';
 import { DispatchActions } from './constants';
 import { DispatchActionArgs, AppState } from './types';
+import { submitTransaction } from './api';
 
 const APP_CONTAINER_COLOR = '#fff';
 
@@ -65,12 +66,21 @@ function HomeScreen() {
           tax: amount,
         };
       }
+      case DispatchActions.RESET: 
+        return {
+          total: 0,
+          items: {},
+          party: [],
+          tip: 0,
+          tax: 0,
+        }
       default:
         return state;
     }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const taxInputRef = useRef(null);
 
   const addItem = (name: string, price: number, purchaserList: Array<string>) => {
     dispatch({
@@ -110,14 +120,41 @@ function HomeScreen() {
     });
   };
 
+  const submit = () => {
+    const items = Object.keys(state.items).map(itemName => {
+      const itemDetails = state.items[itemName];
+      return {
+        name: itemName,
+        cost: itemDetails.price,
+        people: itemDetails.purchaserList
+      }
+    });
+
+    try {
+      submitTransaction({
+        items, 
+        tip: state.tip,
+        tax: state.tax,
+        party: state.party
+      });
+
+      dispatch({ type: DispatchActions.RESET });
+      if (taxInputRef.current) {
+        taxInputRef.current.clear();
+      };
+    } catch {
+      // TODO: show error message
+    }
+  }
+
   return (
     <View style={styles.container}>
       <>
         <>
           <Text>Party</Text>
 
-          {state.party.map((name, index) => (
-            <Text key={`${name}-${index}`}>{name}</Text>
+          {state.party.map((name) => (
+            <Text key={`${name}`}>{name}</Text>
           ))}
           <Text>
             {`\n`}
@@ -145,16 +182,14 @@ function HomeScreen() {
             {`\n`}
           </Text>
           <AddItem addItem={addItem} party={state.party} />
-          <Tax tax={state.tax} setTax={setTax} />
+          <Tax tax={state.tax} setTax={setTax} ref={taxInputRef} />
           <Text>Tax: {state.tax.toFixed(2)}</Text>
           <Tip total={state.total} setTip={setTip} />
           <Text>Tip: {state.tip.toFixed(2)}</Text>
         </>
         <Text>Subtotal: {state.total}</Text>
         <Button
-          onPress={() => {
-            console.log(state)
-          }}
+          onPress={submit}
           title="Submit"
         />
       </>

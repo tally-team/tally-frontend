@@ -1,8 +1,13 @@
 import React from 'react';
 import { render, fireEvent, within } from '@testing-library/react-native';
-import { FlatList } from 'react-native';
+import { FlatList, TextInput } from 'react-native';
 import App from '../../App';
 import '@testing-library/jest-native';
+import { submitTransaction } from '../../api';
+
+jest.mock('../../api', () => ({
+  submitTransaction: jest.fn()
+}));
 
 describe('App page', () => {
   let wrapper;
@@ -83,4 +88,40 @@ describe('App page', () => {
     setUpItems(itemsList);
     expect(wrapper.queryByText(/Subtotal/)).toHaveTextContent('34.77');
   });
+
+  it('submits with expected payload', () => {
+    setUpParty();
+
+    const itemsList = [
+      ['pokeball', '5.00', ['Person A']],
+      ['riceball', '4.00', ['Person B']],
+    ];
+    setUpItems(itemsList);
+
+    fireEvent.press(wrapper.getByText('15%'));
+    
+    // tax input has a placeholder of 0, which is a similar placeholder value for an item price
+    // to not confuse the two, find the input by the defaultValue prop which is only defined for tax input
+    const taxInput = wrapper.root.findAllByType(TextInput).find(input => input.props.defaultValue === '0');
+    fireEvent.changeText(taxInput, '5.29');
+
+    fireEvent.press(wrapper.getByText('Submit'));
+    expect(submitTransaction).toHaveBeenCalledWith({
+      items: [
+        {
+          "cost": 5,
+          "name": "pokeball",
+          "people": ["Person A"],
+        },
+        {
+          "cost": 4,
+           "name": "riceball",
+           "people": ["Person B"],
+        }
+      ],
+      party: ["Person A", "Person B"],
+      tax: 5.29,
+      tip: 1.35
+    });
+  })
 });
